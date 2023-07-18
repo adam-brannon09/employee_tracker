@@ -1,14 +1,16 @@
 //Importing dependencies
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
+require('dotenv').config();
+require('console.table');
 //Connects to the company_db database
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'QAZwsx123!',
-    database: 'company_db'
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 },
-    console.log(`Connected to the company_db database.`)
+    console.log(`You are now connected to the company database.`)
 );
 
 //Uses inquirer package to prompt user for action
@@ -184,11 +186,6 @@ addDepartment = () => {
             message: 'What is the name of the new department?',
             name: 'deptName',
         },
-        // {
-        //     type: 'input',
-        //     message: 'What is the department ID of the new department?',
-        //     name: 'deptID',
-        // }
     ])
         .then((answer) => {
             db.query(
@@ -201,5 +198,5 @@ addDepartment = () => {
         });
 }
 
-
+//Initializes the menu function
 menu();
