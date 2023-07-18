@@ -1,13 +1,13 @@
 
 -- Different departments in the company
-INSERT INTO department(d_id, name) VALUES
+INSERT INTO departments (dept_id, dept_name) VALUES
 (1, 'Sales'),
 (2, 'Engineering'),
 (3, 'Finance'),
 (4, 'Legal');
 
 -- Different roles in the company
-INSERT INTO roles (role_id, title, salary, dept_id) VALUES
+INSERT INTO roles (r_id, title, salary, department_id) VALUES
 (1, 'Sales Lead', 100000.00, 1),
 (2, 'Salesperson', 80000.00, 1),
 (3, 'Lead Engineer', 150000.00, 2),

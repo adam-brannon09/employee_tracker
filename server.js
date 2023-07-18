@@ -1,6 +1,7 @@
+//Importing dependencies
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-
+//Connects to the company_db database
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -10,7 +11,7 @@ const db = mysql.createConnection({
     console.log(`Connected to the company_db database.`)
 );
 
-//Uses inquirer to prompt user for action
+//Uses inquirer package to prompt user for action
 
 const menu = () => {
     inquirer.prompt(
@@ -61,7 +62,7 @@ const menu = () => {
 }
 
 
-//Function to view employees. Will run if view all employees is selected
+//Function to view all employees. Will run if view all employees is selected
 
 viewEmployees = () => {
     db.query('SELECT * FROM employees', function (err, results) {
@@ -96,8 +97,7 @@ addEmployee = () => {
         }
     ])
         .then((answer) => {
-            db.query(
-                `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ("${answer.firstName}", "${answer.lastName}", ${answer.roleID}, ${answer.managerID})`,
+            db.query(`INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ("${answer.firstName}", "${answer.lastName}", ${answer.roleID}, ${answer.managerID})`,
                 function (err, results) {
                     console.log('New Employee added');
                     menu();
@@ -137,3 +137,69 @@ viewRoles = () => {
         menu();
     });
 }
+
+//Function to add a role. Will run if add role is selected.
+addRole = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the title of the new role?',
+            name: 'title',
+        },
+        {
+            type: 'input',
+            message: 'What is the salary of the new role?',
+            name: 'salary',
+        },
+        {
+            type: 'input',
+            message: 'What is the department ID of the new role?',
+            name: 'departmentID',
+        }
+    ])
+        .then((answer) => {
+            db.query(
+                `INSERT INTO roles (title, salary, department_id) VALUES ("${answer.title}", ${answer.salary}, ${answer.departmentID})`,
+                function (err, results) {
+                    console.log('New Role added');
+                    menu();
+                }
+            )
+        });
+}
+
+//Function to view all departments. Will run if view all departments is selected.
+viewDepartments = () => {
+    db.query('SELECT * FROM departments', function (err, results) {
+        console.table(results);
+        menu();
+    });
+}
+
+//Function to add a department. Will run if add department is selected.
+addDepartment = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the new department?',
+            name: 'deptName',
+        },
+        // {
+        //     type: 'input',
+        //     message: 'What is the department ID of the new department?',
+        //     name: 'deptID',
+        // }
+    ])
+        .then((answer) => {
+            db.query(
+                `INSERT INTO departments (dept_name) VALUES ("${answer.deptName}")`,
+                function (err, results) {
+                    console.log('New Department added');
+                    menu();
+                }
+            )
+        });
+}
+
+
+menu();
