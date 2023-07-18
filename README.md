@@ -31,7 +31,7 @@ To install this application, please follow the below instructions:
 <img src="./assets/terminal.png" style="width:700px;height:auto">
 
 ## Demo
-- [Check Out the Demo Video!]()
+ [Check Out the Demo Video!](https://drive.google.com/file/d/1zqoQ9BDZSk58VxR8gcQddEJ0vuy_VkAL/view)
 
 
 ## Contributors
