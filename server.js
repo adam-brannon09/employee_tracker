@@ -125,7 +125,7 @@ updateEmployee = () => {
         }
     ])
         .then((answer) => {
-            db.query(`UPDATE employees SET role_id = ${answer.roleID} WHERE id = ${answer.employeeID}`,
+            db.query(`UPDATE employees SET role_id = ${answer.roleID} WHERE emp_id = ${answer.employeeID}`,
                 function (err, results) {
                     console.log('Employee updated');
                     menu();
